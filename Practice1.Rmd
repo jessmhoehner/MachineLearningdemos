@@ -29,29 +29,51 @@ write_bib(file = files$bibliography)
 
 This is an R Markdown report documenting my first homework assignment from my 
 Machine Learning class at Emory University's Rollins School of Public Health in 
-Spring 2019. The course was taught in Python and was originally submitted as a Jupyter Notebook. Since graduating I have learned 
-and used R for data science projects much more frequently so I decided to go back 
-and re-do my assignments in R with a few goals in mind. 
+Spring 2019. The course was taught in Python and was originally submitted as a 
+Jupyter Notebook. Since graduating I have learned and used R for data science 
+projects much more frequently so I decided to go back and re-do my assignments 
+in R with a few goals in mind. 
 
-1. I don't think I got as much out of the class as I could have and I feel like a stronger basis in theory would improve my current practice. The class was also in Python and since I primarily use R now I want to learn to do these same tasks in R.
+1. I don't think I got as much out of the class as I could have and I feel like 
+a stronger basis in theory would improve my current practice. The class was also 
+in Python and since I primarily use R now I want to learn to do these same tasks 
+in R.
 
-2. I would like to demonstrate basic skills one would learn in an academic machine learning class, how some experience using these skills in the workplace might improve upon them.
+2. I would like to demonstrate basic skills one would learn in a graduate level 
+introductory machine learning class, how some experience using these skills in 
+the workplace might improve upon them.
 
-3. I hope that this series can serve as a very bare bones minimum of what a hiring manager should look for when a candidate submits a example code of machine learning or data analysis they have done. If a candidate is sending you an example of their code and it has warning (or error messages !) in it, let that be its own warning.
+3. I hope that this series can serve as a very bare bones minimum of what a 
+hiring manager should look for when a candidate submits a example code of machine 
+learning or data analysis they have done. If a candidate is sending you an example 
+of their code and it has warning (or error messages !) in it, let that be its own 
+warning.
 
 ##  Practicing handling files {-}
 
-The first assignment is about learning how to read in files and do basic exploratory visualizations like scatter plots, correlation plots, simple linear regression, and predicting new values from the data provided. 
+The first assignment is about learning how to read in files and do basic 
+exploratory visualizations like scatter plots, correlation plots, simple linear 
+regression, and predicting new values from the data provided. 
 
-The homework in the class was very practical and focused on the implementation of the theory learned in the class so these reports may not go into as much detail in writing out every thought someone doing this analysis may have. 
+The homework in the class was very practical and focused on the implementation 
+of the theory learned in the class so these reports may not go into as much 
+detail in writing out every thought someone doing this analysis may have. 
 
 ## Read in the prac1 dataset {-}
 
-The prac1 dataset was provided without context so we did not know what y or any of the x variables represented. The point of the assignment was to practice uploading and working with sample data so this was fine.
+The prac1 dataset was provided without context so we did not know what y or any 
+of the x variables represented. The point of the assignment was to practice 
+uploading and working with sample data so this was fine.
 
-This is not how you would want to start off any real-life analysis. You would begin analysis with a question about how you think your y variable is related to your x variables and you would choose an algorithm with which to address that question. 
+This is not how you would want to start off any real-life analysis. 
+You would begin analysis with a question about how you think your y variable is 
+related to your x variables and you would choose an algorithm with which to 
+address that question. 
 
-Every machine learning algorithm is not appropriate for every question. Even if a program can be made to run without errors that does not mean the analysis done was appropriate or done correctly. If you do not understand why you are using a specific algorithm on a data set, don't use it. 
+Every machine learning algorithm is not appropriate for every question. 
+Even if a program can be made to run without errors that does not mean the 
+analysis done was appropriate or done correctly. If you do not understand why 
+you are using a specific algorithm on a data set, don't use it. 
 
 ```{r readin, output=FALSE, message=FALSE}
 
@@ -69,7 +91,8 @@ These are typical steps in any data analysis project.
 Note that I have used
 embedded variables throughout this summary so that in case the input data 
 change, the summary paragraph will change to reflect the summary statistics
-of that data. This information could also be summarized in a table but was requested in words.
+of that data. 
+This information could also be summarized in a table but was requested in words.
 
 ```{r summary}
 
@@ -101,40 +124,64 @@ head(prac_1) %>%
 
 ```
 
-The prac_1 dataset has `r nrow(prac_1)` rows and `r ncol(prac_1)` columns. All variables are 100% complete, with no missing values so all counts for all 
+The prac_1 dataset has `r nrow(prac_1)` rows and `r ncol(prac_1)` columns. 
+All variables are 100% complete, with no missing values so all counts for all 
 variables will be 150. 
 
-The outcome or dependent variable "y" has a mean of `r round_tidy(mean(prac_1$y),1)`, the standard deviation of `r round_tidy(std_err_y$numeric.sd, 1)`, and a median of  `r round_tidy(median(prac_1$y),1)`. The lowest value of "y" is 
+The outcome or dependent variable "y" has a mean of `r round_tidy(mean(prac_1$y),1)`, 
+the standard deviation of `r round_tidy(std_err_y$numeric.sd, 1)`, and a 
+median of  `r round_tidy(median(prac_1$y),1)`. The lowest value of "y" is 
 `r round_tidy(min(prac_1$y),1)` and the highest value is `r round_tidy(max(prac_1$y), 1)`.
 
 The independent variable "x1" has a mean of `r round_tidy(mean(prac_1$x1),1)`, 
-the standard deviation of `r round_tidy(std_err_x1$numeric.sd, 1)`, and a median of  `r round_tidy(median(prac_1$x1),1)`. The lowest value of "x1" is 
+the standard deviation of `r round_tidy(std_err_x1$numeric.sd, 1)`, and a 
+median of  `r round_tidy(median(prac_1$x1),1)`. The lowest value of "x1" is 
 `r round_tidy(min(prac_1$x1),1)` and the highest value is `r round_tidy(max(prac_1$x1), 1)`.
 
-The independent variable "x2" has a mean of `r round_tidy(mean(prac_1$x2),1)`, the standard deviation of `r round_tidy(std_err_x2$numeric.sd, 1)`, and a median of  `r round_tidy(median(prac_1$x2),1)`. The lowest value of "x2" is `r round_tidy(min(prac_1$x2),1)` and the highest value is `r round_tidy(max(prac_1$x2), 1)`.
+The independent variable "x2" has a mean of `r round_tidy(mean(prac_1$x2),1)`, 
+the standard deviation of `r round_tidy(std_err_x2$numeric.sd, 1)`, and a 
+median of  `r round_tidy(median(prac_1$x2),1)`. The lowest value of "x2" is 
+`r round_tidy(min(prac_1$x2),1)` and the highest value is `r round_tidy(max(prac_1$x2), 1)`.
 
 The independent variable "x3" has a mean of `r round_tidy(mean(prac_1$x3),1)`, 
-the standard deviation of `r round_tidy(std_err_x3$numeric.sd, 1)`, and a median of  `r round_tidy(median(prac_1$x3),1)`. The lowest value of "x3" is `r round_tidy(min(prac_1$x3),1)` and the highest value is `r round_tidy(max(prac_1$x3), 1)`.
+the standard deviation of `r round_tidy(std_err_x3$numeric.sd, 1)`, and a 
+median of  `r round_tidy(median(prac_1$x3),1)`. The lowest value of "x3" is 
+`r round_tidy(min(prac_1$x3),1)` and the highest value is `r round_tidy(max(prac_1$x3), 1)`.
 
 The independent variable "x4" has a mean of `r round_tidy(mean(prac_1$x4),1)`, 
-the standard deviation of `r round_tidy(std_err_x4$numeric.sd, 1)`, and a median of `r round_tidy(median(prac_1$x4),1)`. The lowest value of "x4" is `r round_tidy(min(prac_1$x4),1)` and the highest value is `r round_tidy(max(prac_1$x4), 1)`.
+the standard deviation of `r round_tidy(std_err_x4$numeric.sd, 1)`, and a median 
+of `r round_tidy(median(prac_1$x4),1)`. The lowest value of "x4" is 
+`r round_tidy(min(prac_1$x4),1)` and the highest value is `r round_tidy(max(prac_1$x4), 1)`.
 
 The independent variable "x9" has a mean of `r round_tidy(mean(prac_1$x9),1)`, 
-the standard deviation of `r round_tidy(std_err_x9$numeric.sd, 1)`, and a median of `r round_tidy(median(prac_1$x9),1)`. The lowest value of "x9" is `r round_tidy(min(prac_1$x9),1)` and the highest value is `r round_tidy(max(prac_1$x9), 1)`.
+the standard deviation of `r round_tidy(std_err_x9$numeric.sd, 1)`, and a median 
+of `r round_tidy(median(prac_1$x9),1)`. The lowest value of "x9" is 
+`r round_tidy(min(prac_1$x9),1)` and the highest value is `r round_tidy(max(prac_1$x9), 1)`.
 
-The independent variable "x10" has a mean of `r round_tidy(mean(prac_1$x10),2)`, the standard deviation of `r round_tidy(std_err_x10$numeric.sd, 1)`, and a median of  `r round_tidy(median(prac_1$x10),1)`. The lowest value of "x10" is `r round_tidy(min(prac_1$x10),1)` and the highest value is `r round_tidy(max(prac_1$x10), 1)`.
+The independent variable "x10" has a mean of `r round_tidy(mean(prac_1$x10),2)`,
+the standard deviation of `r round_tidy(std_err_x10$numeric.sd, 1)`, and a 
+median of  `r round_tidy(median(prac_1$x10),1)`. The lowest value of "x10" is
+`r round_tidy(min(prac_1$x10),1)` and the highest value is `r round_tidy(max(prac_1$x10), 1)`.
 
 ### Exploratory Data Analysis {-}
 
-If you skip this step in real-life analysis to get to the modeling without actually knowing anything about your data, it is very likely (read: certain) you will analyze the data incorrectly and have misplaced confidence in your results.
+If you skip this step in real-life analysis to get to the modeling without 
+actually knowing anything about your data, it is very likely (read: certain) 
+you will analyze the data incorrectly and have misplaced confidence in your results.
 
 ##### Scatterplot of x1 - x10 vs y {-}
 
-These are very basic, exploratory graphs since I am using them to check relationships between the x and y variables and they would not likely be 
-considered a deliverable. Note that x9 and x10 are not included because these appeared to be categorical and a scatter plot would not be appropriate to asses a relationship with a numerical variable like y. 
+These are very basic, exploratory graphs since I am using them to check 
+relationships between the x and y variables and they would not likely be 
+considered a deliverable. Note that x9 and x10 are not included because these 
+appeared to be categorical and a scatter plot would not be appropriate to asses 
+a relationship with a numerical variable like y. 
 
 As mentioned above in a real-life analysis you would 
-have data where you suspect there to be a relationship between your y and x variables and you can check that visually with a scatter plot. Sometimes data may require transformations to properly capture the relationship since it may not be linear but that was beyond the scope of this assignment. 
+have data where you suspect there to be a relationship between your y and x 
+variables and you can check that visually with a scatter plot. Sometimes data 
+may require transformations to properly capture the relationship since it may 
+not be linear but that was beyond the scope of this assignment. 
 
 ```{r eda}
 
@@ -169,14 +216,17 @@ ggplot(prac_1, aes(x = x10, y = y)) +
 
 ```
 
-Based on these scatter plots, the x variables do not appear to be correlated with the y variable. If I were using real data and I saw this kind of 
+Based on these scatter plots, the x variables do not appear to be correlated 
+with the y variable. If I were using real data and I saw this kind of 
 relationship between my x variables and y variables I would likely not use
-any model to identify a relationship between them since there 
-does not appear to be one. 
+any model to identify a relationship between them since there does not appear to be one. 
 
 #### Correlation plot {-}
 
-Another common exploratory tool to assess relationships between variables is a correlation plot. The closer the values are to 1 or -1, the stronger the relationship between the variables. Every variable will be 100% correlated with itself so you will see 1s in those boxes. 
+Another common exploratory tool to assess relationships between variables is a 
+correlation plot. The closer the values are to 1 or -1, the stronger the 
+relationship between the variables. Every variable will be 100% correlated with 
+itself so you will see 1s in those boxes. 
 
 ```{r corr}
 
@@ -254,13 +304,20 @@ determining if variables are related to an outcome.
 #### Predicting new values {-}
 
 When we use this model to predict new outcome estimates (y) we see that these 
-lower and upper confidence intervals for these estimates are very wide, they vary between the -10s to the 100s. Without knowing anything else about the
-source data these estimates alone would suggest to me that these predicted data would be worse than useless. 
+lower and upper confidence intervals for these estimates are very wide, they 
+vary between the -10s to the 100s. Without knowing anything else about the
+source data these estimates alone would suggest to me that these predicted data 
+would be worse than useless. 
 
 How might a client react if you told them your company made
-an estimated $\$ 100,000$  dollars in revenue annually but that it could vary as much as being $\$ 20,000$ in debt every year or having $\$ 1,000,000$ dollars in annual revenue? This is the level of certainty these results are giving us. 
+an estimated $\$ 100,000$  dollars in revenue annually but that it could vary as 
+much as being $\$ 20,000$ in debt every year or having $\$ 1,000,000$ dollars 
+in annual revenue? This is the level of certainty these results are giving us. 
 
-Note that I have set a seed, an inconsequential string of digits, to ensure I will produce the same results each time I run this analysis. If you are using a machine learning algorithm it is critical that you set a seed for you and others to be able to reproduce your work each time you run an analysis.
+Note that I have set a seed, an inconsequential string of digits, to ensure I 
+will produce the same results each time I run this analysis. If you are using a 
+machine learning algorithm it is critical that you set a seed for you and others 
+to be able to reproduce your work each time you run an analysis.
 
 ```{r predict}
 set.seed(22310)

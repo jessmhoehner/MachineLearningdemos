@@ -1,2 +1,2 @@
-# MachineLearningdemos
+# Machine Learning Demos
 This repository contains R Markdown reports documenting updates of my homework assignments from my  Machine Learning class at Emory University's Rollins School of Public Health in  Spring 2019. The course was taught in Python and was originally submitted as a Jupyter Notebook. Since graduating I have learned and used R for data science projects much more frequently so I decided to go back  and re-do my assignments.
